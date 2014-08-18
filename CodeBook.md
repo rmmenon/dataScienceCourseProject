@@ -24,15 +24,19 @@ Description of Tidy Data Set
 - tBodyGyroJerkstdX, tBodyGyroJerkstdY, tBodyGyroJerkstdZ represent standard deviation of jerk motion of body component of gyro measurement in X, Y and Z directions.  
 - tBodyAccMagmean, tBodyAccMagstd represent body acceleration mean and standard deviations respectively   
 - tGravityAccMagmean   tGravityAccMagstd   
- tBodyAccJerkMagmean   tBodyAccJerkMagstd   tBodyGyroMagmean    tBodyGyroMagstd    
- tBodyGyroJerkMagmean   tBodyGyroJerkMagstd   fBodyAccmeanX    fBodyAccmeanY    
- fBodyAccmeanZ    fBodyAccstdX     fBodyAccstdY     fBodyAccstdZ    
- fBodyAccmeanFreqX   fBodyAccmeanFreqY   fBodyAccmeanFreqZ   fBodyAccJerkmeanX   
- fBodyAccJerkmeanY   fBodyAccJerkmeanZ   fBodyAccJerkstdX    fBodyAccJerkstdY   
- fBodyAccJerkstdZ  fBodyAccJerkmeanFreqX fBodyAccJerkmeanFreqY fBodyAccJerkmeanFreqZ 
- fBodyGyromeanX  fBodyGyromeanY  fBodyGyromeanZ  fBodyGyrostdX  
- fBodyGyrostdY  fBodyGyrostdZ  fBodyGyromeanFreqX  fBodyGyromeanFreqY  
- fBodyGyromeanFreqZ  fBodyAccMagmean  fBodyAccMagstd  fBodyAccMagmeanFreq  
- fBodyBodyAccJerkMagmean fBodyBodyAccJerkMagstd fBodyBodyAccJerkMagmeanFreq fBodyBodyGyroMagmean 
- fBodyBodyGyroMagstd fBodyBodyGyroMagmeanFreq fBodyBodyGyroJerkMagmean fBodyBodyGyroJerkMagstd 
- fBodyBodyGyroJerkMagmeanFreq
+- tBodyAccJerkMagmean, tBodyAccJerkMagstd represent mean and standard deviation for body jerk motion of accelerator.
+- tBodyGyroMagmean, tBodyGyroMagstd represent mean and standard deviation of body gyro measurements.
+- tBodyGyroJerkMagmean, tBodyGyroJerkMagstd represent mean and standard deviation of jerk motion of body gyro measurements.
+- fBodyAccmeanX, fBodyAccmeanY, fBodyAccmeanZ represent mean body acceleration measurements in X, Y and Z directions
+- fBodyAccstdX, fBodyAccstdY, fBodyAccstdZ represent standard deviation of body acceleration measurements in X, Y and Z directions
+- fBodyAccmeanFreqX, fBodyAccmeanFreqY, fBodyAccmeanFreqZ represent mean body acceleration frequency measurements in X, Y and Z directions
+- fBodyAccJerkmeanX, fBodyAccJerkmeanY, fBodyAccJerkmeanZ represent mean body acceleration jerk measurements in X, Y and Z directions
+- fBodyAccJerkstdX, fBodyAccJerkstdY, fBodyAccJerkstdZ represent standard deviation of body acceleration jerk measurements in X, Y and Z directions
+- fBodyAccJerkmeanFreqX, fBodyAccJerkmeanFreqY, fBodyAccJerkmeanFreqZ reperesent mean body acceleration jerk frequency measurements in X, Y and Z directions
+- fBodyGyromeanX, fBodyGyromeanY, fBodyGyromeanZ represent mean body gyro measurements in X, Y and Z directions
+- fBodyGyrostdX, fBodyGyrostdY, fBodyGyrostdZ represent standard deviation bidy gyro measurements in X, Y and Z directions
+- fBodyGyromeanFreqX, fBodyGyromeanFreqY, fBodyGyromeanFreqZ represent mean body gyro frequency measurements in X, Y and Z directions
+- fBodyAccMagmean, fBodyAccMagstd, fBodyAccMagmeanFreq represent body acceleration mean, standard deviation and frequency measurements.
+- fBodyBodyAccJerkMagmean, fBodyBodyAccJerkMagstd, fBodyBodyAccJerkMagmeanFreq represent body acceleration mean, standard deviation and frequency measurements.
+- fBodyBodyGyroMagmean, fBodyBodyGyroMagstd, fBodyBodyGyroMagmeanFreq represent body, body gyro mean, standard deviation and frequency measurements.
+- fBodyBodyGyroJerkMagmean, fBodyBodyGyroJerkMagstd, fBodyBodyGyroJerkMagmeanFreq represent body, body gyro gerk mean, standard deviation and frequency measurements.
