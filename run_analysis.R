@@ -47,7 +47,6 @@ data[,2] <- d1
 columnIndicesToBeRemoved <- grep("mean|std|subject|activity", tolower(names(data)), invert=TRUE)
 dataThin <- data[,-columnIndicesToBeRemoved]
 
-
 # find mean by subject and activity
 molten <- melt(dataThin, id=c("subject", "activity"))
 tidyData <- dcast(molten, subject+activity~variable, mean)
