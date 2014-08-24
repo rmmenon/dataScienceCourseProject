@@ -7,7 +7,7 @@ TRAIN_ROOT_DIR <- sprintf("UCI HAR Dataset/train");
 
 # get features data
 features <- read.table(sprintf("%s/%s", ROOT_DIR, "features.txt"))
-featuresNormalized <- gsub("-|\\(\\)","",features[,2])
+featuresNormalized <- gsub("-|\\(|\\)|,","",features[,2])
 
 # get test data
 subject_test <- read.table(sprintf("%s/%s", TEST_ROOT_DIR, "subject_test.txt"))
@@ -44,7 +44,7 @@ d1 <- gsub("6","LAYING", d1)
 data[,2] <- d1
 
 # extract mean and standard deviation for each measurement
-columnIndicesToBeRemoved <- grep("mean|std|subject|activity", n, invert=TRUE)
+columnIndicesToBeRemoved <- grep("mean|std|subject|activity", tolower(names(data)), invert=TRUE)
 dataThin <- data[,-columnIndicesToBeRemoved]
 
 # function implementing, brute force way of generating mean for each variable

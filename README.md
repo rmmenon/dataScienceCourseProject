@@ -8,7 +8,7 @@ The R script run_analysis.R assumes the following:
 * The zip file has been expanded such that data exists under a subdirectory "UCI HAR Dataset".
 
 The R script run_analysis.R does the following:
-* Loads features data set and normalizes them. These would become column names of the variables eventually. Normalizing them essentially means removing "()" and "-". We delibarately do not lower case the variable names since we think it reduces readability
+* Loads features data set and normalizes them. These would become column names of the variables eventually. Normalizing them essentially means removing "(", ")", "," and "-". We delibarately do not lower case the variable names since we think it reduces readability. Note this is subjective.
 * Loads subject, y and X data for test and train data sets. Also sets the column names in each of these to normalized feature data set obtained in step 1.
 * Consolidates test and training data bu adding them column wise
 * Combines test and training data set row wise to create a combined data set. Also sets the names of the first and second column to more readable names.
