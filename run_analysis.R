@@ -1,5 +1,5 @@
 library(plyr)
-############# helper function definitions ###############
+library(reshape2)
 
 ROOT_DIR <- sprintf("UCI HAR Dataset");
 TEST_ROOT_DIR <- sprintf("UCI HAR Dataset/test");
@@ -47,89 +47,8 @@ data[,2] <- d1
 columnIndicesToBeRemoved <- grep("mean|std|subject|activity", tolower(names(data)), invert=TRUE)
 dataThin <- data[,-columnIndicesToBeRemoved]
 
-# function implementing, brute force way of generating mean for each variable
-avgFunction <- function(d) { 
-  c(
-  "tBodyAccmeanX"=mean(d[,"tBodyAccmeanX"]),
-  "tBodyAccmeanY"=mean(d[,"tBodyAccmeanY"]),
-  "tBodyAccmeanZ"=mean(d[,"tBodyAccmeanZ"]),
-  "tBodyAccstdX"=mean(d[,"tBodyAccstdX"]),
-  "tBodyAccstdY"=mean(d[,"tBodyAccstdY"]),
-  "tBodyAccstdZ"=mean(d[,"tBodyAccstdZ"]),
-  "tGravityAccmeanX"=mean(d[,"tGravityAccmeanX"]),
-  "tGravityAccmeanY"=mean(d[,"tGravityAccmeanY"]),
-  "tGravityAccmeanZ"=mean(d[,"tGravityAccmeanZ"]),
-  "tGravityAccstdX"=mean(d[,"tGravityAccstdX"]),
-  "tGravityAccstdY"=mean(d[,"tGravityAccstdY"]),
-  "tGravityAccstdZ"=mean(d[,"tGravityAccstdZ"]),
-  "tBodyAccJerkmeanX"=mean(d[,"tBodyAccJerkmeanX"]),
-  "tBodyAccJerkmeanY"=mean(d[,"tBodyAccJerkmeanY"]),
-  "tBodyAccJerkmeanZ"=mean(d[,"tBodyAccJerkmeanZ"]),
-  "tBodyAccJerkstdX"=mean(d[,"tBodyAccJerkstdX"]),
-  "tBodyAccJerkstdY"=mean(d[,"tBodyAccJerkstdY"]),
-  "tBodyAccJerkstdZ"=mean(d[,"tBodyAccJerkstdZ"]),
-  "tBodyGyromeanX"=mean(d[,"tBodyGyromeanX"]),
-  "tBodyGyromeanY"=mean(d[,"tBodyGyromeanY"]),
-  "tBodyGyromeanZ"=mean(d[,"tBodyGyromeanZ"]),
-  "tBodyGyrostdX"=mean(d[,"tBodyGyrostdX"]),
-  "tBodyGyrostdY"=mean(d[,"tBodyGyrostdY"]),
-  "tBodyGyrostdZ"=mean(d[,"tBodyGyrostdZ"]),
-  "tBodyGyroJerkmeanX"=mean(d[,"tBodyGyroJerkmeanX"]),
-  "tBodyGyroJerkmeanY"=mean(d[,"tBodyGyroJerkmeanY"]),
-  "tBodyGyroJerkmeanZ"=mean(d[,"tBodyGyroJerkmeanZ"]),
-  "tBodyGyroJerkstdX"=mean(d[,"tBodyGyroJerkstdX"]),
-  "tBodyGyroJerkstdY"=mean(d[,"tBodyGyroJerkstdY"]),
-  "tBodyGyroJerkstdZ"=mean(d[,"tBodyGyroJerkstdZ"]),
-  "tBodyAccMagmean"=mean(d[,"tBodyAccMagmean"]),
-  "tBodyAccMagstd"=mean(d[,"tBodyAccMagstd"]),
-  "tGravityAccMagmean"=mean(d[,"tGravityAccMagmean"]),
-  "tGravityAccMagstd"=mean(d[,"tGravityAccMagstd"]),
-  "tBodyAccJerkMagmean"=mean(d[,"tBodyAccJerkMagmean"]),
-  "tBodyAccJerkMagstd"=mean(d[,"tBodyAccJerkMagstd"]),
-  "tBodyGyroMagmean"=mean(d[,"tBodyGyroMagmean"]),
-  "tBodyGyroMagstd"=mean(d[,"tBodyGyroMagstd"]),
-  "tBodyGyroJerkMagmean"=mean(d[,"tBodyGyroJerkMagmean"]),
-  "tBodyGyroJerkMagstd"=mean(d[,"tBodyGyroJerkMagstd"]),
-  "fBodyAccmeanX"=mean(d[,"fBodyAccmeanX"]),
-  "fBodyAccmeanY"=mean(d[,"fBodyAccmeanY"]),
-  "fBodyAccmeanZ"=mean(d[,"fBodyAccmeanZ"]),
-  "fBodyAccstdX"=mean(d[,"fBodyAccstdX"]),
-  "fBodyAccstdY"=mean(d[,"fBodyAccstdY"]),
-  "fBodyAccstdZ"=mean(d[,"fBodyAccstdZ"]),
-  "fBodyAccmeanFreqX"=mean(d[,"fBodyAccmeanFreqX"]),
-  "fBodyAccmeanFreqY"=mean(d[,"fBodyAccmeanFreqY"]),
-  "fBodyAccmeanFreqZ"=mean(d[,"fBodyAccmeanFreqZ"]),
-  "fBodyAccJerkmeanX"=mean(d[,"fBodyAccJerkmeanX"]),
-  "fBodyAccJerkmeanY"=mean(d[,"fBodyAccJerkmeanY"]),
-  "fBodyAccJerkmeanZ"=mean(d[,"fBodyAccJerkmeanZ"]),
-  "fBodyAccJerkstdX"=mean(d[,"fBodyAccJerkstdX"]),
-  "fBodyAccJerkstdY"=mean(d[,"fBodyAccJerkstdY"]),
-  "fBodyAccJerkstdZ"=mean(d[,"fBodyAccJerkstdZ"]),
-  "fBodyAccJerkmeanFreqX"=mean(d[,"fBodyAccJerkmeanFreqX"]),
-  "fBodyAccJerkmeanFreqY"=mean(d[,"fBodyAccJerkmeanFreqY"]),
-  "fBodyAccJerkmeanFreqZ"=mean(d[,"fBodyAccJerkmeanFreqZ"]),
-  "fBodyGyromeanX"=mean(d[,"fBodyGyromeanX"]),
-  "fBodyGyromeanY"=mean(d[,"fBodyGyromeanY"]),
-  "fBodyGyromeanZ"=mean(d[,"fBodyGyromeanZ"]),
-  "fBodyGyrostdX"=mean(d[,"fBodyGyrostdX"]),
-  "fBodyGyrostdY"=mean(d[,"fBodyGyrostdY"]),
-  "fBodyGyrostdZ"=mean(d[,"fBodyGyrostdZ"]),
-  "fBodyGyromeanFreqX"=mean(d[,"fBodyGyromeanFreqX"]),
-  "fBodyGyromeanFreqY"=mean(d[,"fBodyGyromeanFreqY"]),
-  "fBodyGyromeanFreqZ"=mean(d[,"fBodyGyromeanFreqZ"]),
-  "fBodyAccMagmean"=mean(d[,"fBodyAccMagmean"]),
-  "fBodyAccMagstd"=mean(d[,"fBodyAccMagstd"]),
-  "fBodyAccMagmeanFreq"=mean(d[,"fBodyAccMagmeanFreq"]),
-  "fBodyBodyAccJerkMagmean"=mean(d[,"fBodyBodyAccJerkMagmean"]),
-  "fBodyBodyAccJerkMagstd"=mean(d[,"fBodyBodyAccJerkMagstd"]),
-  "fBodyBodyAccJerkMagmeanFreq"=mean(d[,"fBodyBodyAccJerkMagmeanFreq"]),
-  "fBodyBodyGyroMagmean"=mean(d[,"fBodyBodyGyroMagmean"]),
-  "fBodyBodyGyroMagstd"=mean(d[,"fBodyBodyGyroMagstd"]),
-  "fBodyBodyGyroMagmeanFreq"=mean(d[,"fBodyBodyGyroMagmeanFreq"]),
-  "fBodyBodyGyroJerkMagmean"=mean(d[,"fBodyBodyGyroJerkMagmean"]),
-  "fBodyBodyGyroJerkMagstd"=mean(d[,"fBodyBodyGyroJerkMagstd"]),
-  "fBodyBodyGyroJerkMagmeanFreq"=mean(d[,"fBodyBodyGyroJerkMagmeanFreq"])
-  )
-}
-avgData <- ddply(dataThin, c("subject", "activity"), avgFunction)
-write.table(avgData, file="avgData.txt",row.names=FALSE, sep=",")
+
+# find mean by subject and activity
+molten <- melt(dataThin, id=c("subject", "activity"))
+tidyData <- dcast(molten, subject+activity~variable, mean)
+write.table(tidyData, file="tidyData.txt",row.names=FALSE, sep=",")
